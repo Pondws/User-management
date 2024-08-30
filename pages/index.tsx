@@ -22,16 +22,27 @@ import {
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useState } from "react";
 
+interface UsersProp {
+  name: string,
+  lastName: string,
+  email: string,
+  confirm: boolean,
+  gender: string,
+  hobby: string[],
+  status: string,
+  note: string
+}
+
 export default function Home() {
-  const [users, setUsers] = useState<any[]>([]);
-  const [name, setName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [email, setEmail] = useState("")
-  const [confirm, setConfirm] = useState(false)
-  const [gender, setGender] = useState("Male")
+  const [users, setUsers] = useState<UsersProp[]>([]);
+  const [name, setName] = useState<string>("")
+  const [lastName, setLastName] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [confirm, setConfirm] = useState<boolean>(false)
+  const [gender, setGender] = useState<string>("Male")
   const [hobby, setHobby] = useState<string[]>([])
-  const [status, setStatus] = useState("")
-  const [note, setNote] = useState("")
+  const [status, setStatus] = useState<string>("")
+  const [note, setNote] = useState<string>("")
 
   const handleHobbyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedHobby = event.target.value;
@@ -43,6 +54,8 @@ export default function Home() {
   };
 
   const handleSubmit = async () => {
+    const hobbyList = ["Game", "Music", "Craft", "Reading"]
+    hobby.sort((a, b) => hobbyList.indexOf(a) - hobbyList.indexOf(b))
     const newUser = {
       name,
       lastName,
@@ -88,7 +101,8 @@ export default function Home() {
             sx={{
               fontSize: "3rem",
               alignItems: "center",
-              lineHeight: 1.167
+              lineHeight: 1.167,
+              letterSpacing: 0.0075
             }}
           >
             User profile management System
@@ -149,7 +163,6 @@ export default function Home() {
 
                 <Grid item xs={6}>
                   <TextField
-                    // aria-invalid="false"
                     fullWidth
                     id="lastName"
                     label="Last name"
